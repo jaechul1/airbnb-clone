@@ -7,6 +7,9 @@ name = "pypi"
 django = "==2.2.5"
 pillow = "*"
 django-countries = "*"
+django-seed = "*"
+django-dotenv = "*"
+requests = "*"
 
 [dev-packages]
 flake8 = "*"

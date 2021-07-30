@@ -1,7 +1,15 @@
 {
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
-  "python.linting.flake8Args": ["--max-line-length=88"],
+  "python.linting.flake8Args": [
+    "--max-line-length=14s0",
+],
   "editor.defaultFormatter": null,
-  "python.formatting.provider": "black"
+  "python.formatting.provider": "black",
+  "[django-html]": {
+    "editor.formatOnSave": false
+  },
+  "files.associations": {
+    "*.html": "django-html"
+  }
 }
