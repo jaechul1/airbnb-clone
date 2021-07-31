@@ -139,9 +139,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-"""
-Added extra setting from django startproject
-"""
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # To extend the default users model
 
@@ -149,6 +147,8 @@ AUTH_USER_MODEL = "users.User"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 MEDIA_URL = "/media/"
+
+# Email Configuration
 
 EMAIL_HOST = "smtp.mailgun.org"
 EMAIL_PORT = "587"
