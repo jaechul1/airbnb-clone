@@ -1,0 +1,6 @@
+<div class="{% if field.errors %}error-container{% endif %}">
+    {% for error in field.errors %}
+        <span class="error-message">{{error}}</span> 
+    {% endfor %}
+    {{field}}
+</div>

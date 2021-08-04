@@ -6,8 +6,10 @@ from . import models
 class LoginForm(forms.Form):
     """User login form"""
 
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "Email"}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+    )
 
     def clean(self):
         email = self.cleaned_data.get("email")
@@ -17,25 +19,33 @@ class LoginForm(forms.Form):
             if user.check_password(password):
                 return self.cleaned_data
             else:
-                self.add_error("password", forms.ValidationError("Wrong password"))
+                self.add_error("password", forms.ValidationError("Wrong password."))
         except models.User.DoesNotExist:
-            self.add_error("email", forms.ValidationError("No user with such email"))
+            self.add_error("email", forms.ValidationError("No user with such email."))
 
 
 class SignUpForm(forms.Form):
     """User sign up form"""
 
-    first_name = forms.CharField(max_length=80)
-    last_name = forms.CharField(max_length=80)
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
-    passwordC = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={"placeholder": "First Name"}), max_length=80
+    )
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={"placeholder": "Last Name"}), max_length=80
+    )
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "Email"}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+    )
+    passwordC = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"})
+    )
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
         try:
             models.User.objects.get(email=email)
-            raise forms.ValidationError("Email already exists")
+            raise forms.ValidationError("Email already exists.")
         except models.User.DoesNotExist:
             return email
 
@@ -48,7 +58,7 @@ class SignUpForm(forms.Form):
         password = self.cleaned_data.get("password")
         passwordC = self.cleaned_data.get("passwordC")
         if password != passwordC:
-            raise forms.ValidationError("Password confirmation failed")
+            raise forms.ValidationError("Password confirmation failed.")
         else:
             return password
 
