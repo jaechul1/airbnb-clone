@@ -5,6 +5,7 @@ from django.views.generic import FormView, DetailView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, reverse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
@@ -257,14 +258,6 @@ class UpdateProfileView(mixins.EmailLoginOnlyView, SuccessMessageMixin, UpdateVi
     def get_object(self, queryset=None):
         return self.request.user
 
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class=form_class)
-        form.fields["avatar"].widget.attrs["placeholder"] = "Avatar"
-        form.fields["bio"].widget.attrs["placeholder"] = "Bio"
-        form.fields["language"].widget.attrs["placeholder"] = "Language"
-        form.fields["currency"].widget.attrs["placeholder"] = "Currency"
-        return form
-
 
 class UpdatePasswordView(
     mixins.EmailLoginOnlyView, SuccessMessageMixin, PasswordChangeView
@@ -273,14 +266,14 @@ class UpdatePasswordView(
     template_name = "users/update-password.html"
     success_message = "Password updated."
 
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class=form_class)
-        form.fields["old_password"].widget.attrs = {"placeholder": "Old password"}
-        form.fields["new_password1"].widget.attrs = {"placeholder": "New password"}
-        form.fields["new_password2"].widget.attrs = {
-            "placeholder": "New password confirmation"
-        }
-        return form
-
     def get_success_url(self):
         return self.request.user.get_absolute_url()
+
+
+@login_required
+def switch_hosting(request):
+    try:
+        del request.session["is_hosting"]
+    except KeyError:
+        request.session["is_hosting"] = True
+    return redirect(reverse("core:home"))

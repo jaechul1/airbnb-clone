@@ -6,10 +6,8 @@ from . import models
 class LoginForm(forms.Form):
     """User login form"""
 
-    email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "Email"}))
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
-    )
+    email = forms.EmailField(widget=forms.EmailInput())
+    password = forms.CharField(widget=forms.PasswordInput())
 
     def clean(self):
         email = self.cleaned_data.get("email")
@@ -27,19 +25,11 @@ class LoginForm(forms.Form):
 class SignUpForm(forms.Form):
     """User sign up form"""
 
-    first_name = forms.CharField(
-        widget=forms.TextInput(attrs={"placeholder": "First Name"}), max_length=80
-    )
-    last_name = forms.CharField(
-        widget=forms.TextInput(attrs={"placeholder": "Last Name"}), max_length=80
-    )
-    email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "Email"}))
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
-    )
-    passwordC = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"})
-    )
+    first_name = forms.CharField(widget=forms.TextInput(), max_length=80)
+    last_name = forms.CharField(widget=forms.TextInput(), max_length=80)
+    email = forms.EmailField(widget=forms.EmailInput())
+    password = forms.CharField(widget=forms.PasswordInput())
+    passwordC = forms.CharField(widget=forms.PasswordInput())
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
