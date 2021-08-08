@@ -11,7 +11,7 @@
 
     <div class="container md:w-1/2 lg:w-5/12 xl:w-1/4 mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
         {% include "partials/social_login.html" %}
-        {% include "mixins/auth_form.html" with form=form cta="Sign Up"%}
+        {% include "mixins/general_form.html" with form=form cta="Sign Up"%}
         <div class="mt-5">
             <span class="mr-1">Have an account?</span>
             <a href="{% url 'users:login' %}" class="text-green-600 font-medium">Log in</a>

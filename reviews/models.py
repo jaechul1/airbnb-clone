@@ -3,15 +3,24 @@ from core.models import AbstractTimestamp
 
 
 class Review(AbstractTimestamp):
-    """Review Model"""
+    class Meta:
+        ordering = ("-created",)
+
+    RATE_CHOICES = (
+        (1, "1"),
+        (2, "2"),
+        (3, "3"),
+        (4, "4"),
+        (5, "5"),
+    )
 
     review = models.TextField()
-    accuracy = models.IntegerField()
-    communication = models.IntegerField()
-    cleanliness = models.IntegerField()
-    location = models.IntegerField()
-    check_in = models.IntegerField()
-    value = models.IntegerField()
+    accuracy = models.IntegerField(choices=RATE_CHOICES, default=5)
+    communication = models.IntegerField(choices=RATE_CHOICES, default=5)
+    cleanliness = models.IntegerField(choices=RATE_CHOICES, default=5)
+    location = models.IntegerField(choices=RATE_CHOICES, default=5)
+    check_in = models.IntegerField(choices=RATE_CHOICES, default=5)
+    value = models.IntegerField(choices=RATE_CHOICES, default=5)
     user = models.ForeignKey(
         "users.User", related_name="reviews", on_delete=models.CASCADE
     )

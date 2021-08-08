@@ -29,7 +29,7 @@ class SignUpForm(forms.Form):
     last_name = forms.CharField(widget=forms.TextInput(), max_length=80)
     email = forms.EmailField(widget=forms.EmailInput())
     password = forms.CharField(widget=forms.PasswordInput())
-    passwordC = forms.CharField(widget=forms.PasswordInput())
+    password_confirmation = forms.CharField(widget=forms.PasswordInput())
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -46,8 +46,8 @@ class SignUpForm(forms.Form):
 
     def clean_passwordC(self):
         password = self.cleaned_data.get("password")
-        passwordC = self.cleaned_data.get("passwordC")
-        if password != passwordC:
+        password_confirmation = self.cleaned_data.get("password_confirmation")
+        if password != password_confirmation:
             raise forms.ValidationError("Password confirmation failed.")
         else:
             return password

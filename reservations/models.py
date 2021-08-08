@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.utils import timezone
 from django.utils.dateparse import parse_date
@@ -43,6 +44,20 @@ class Reservation(AbstractTimestamp):
         return now > self.check_out
 
     is_finished.boolean = True
+
+    def booked_days(self):
+        if self.status == self.STATUS_CANCELED:
+            return []
+        else:
+            if self.check_in and self.check_out:
+                booked_days = []
+                diff = (self.check_out - self.check_in).days
+                for day in range(diff):
+                    booked_day = self.check_in + datetime.timedelta(days=day)
+                    booked_days.append(booked_day)
+                return booked_days
+            else:
+                return []
 
 
 def get_local_now():

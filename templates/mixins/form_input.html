@@ -4,6 +4,8 @@
     {% endfor %}
     <div class="{% if field.field.widget.input_type == "checkbox" %}flex my-2{% endif %}">
         <label for="id_{{field.name}}">{{field.label}}</label>
-        <div class="{% if field.field.widget.input_type == "checkbox" %}w-8 relative top-0.5{% else %}mt-1{% endif %}">{{field}}</div>
+        <div class="{% if field.field.widget.input_type == "checkbox" %}w-8 relative top-0.5{% else %}mt-1{% endif %}">
+            {{field}}
+        </div>
     </div>
 </div>

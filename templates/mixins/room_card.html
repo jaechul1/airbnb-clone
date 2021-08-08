@@ -4,7 +4,9 @@
         <div class="flex justify-between mb-2">
             <div class="w-4/5 overflow-hidden flex">
                 {% if room.host.superhost %}
-                    <span class="uppercase font-medium text-xs border border-black text-black rounded py-px px-1 mr-1.5">Superhost</span>
+                    <span class="uppercase font-medium text-xs border border-black text-black rounded py-px px-1 mr-1.5">
+                        Superhost
+                    </span>
                 {% endif %}
                 <span class="text-sm text-gray-600 block truncate">{{room.city}} · {{room.country.name}}</span>
             </div>
